@@ -1,6 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import appInfo from "../package.json" assert { type: "json" };
 import path from "path"
 
 const swaggerSpec = swaggerJSDoc({
@@ -8,7 +7,7 @@ const swaggerSpec = swaggerJSDoc({
     openapi: "3.0.0",
     info: {
       title: "REST API for NepStox.",
-      version: appInfo.version,
+      version: "1.0.0",
     }
   },
 
