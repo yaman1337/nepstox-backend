@@ -10,7 +10,7 @@ app.use(cors());
 app.use("/nepse", nepseDataRouter);
 
 app.get("/", (req, res) => {
-  res.send("Visit <a href='http://localhost:9000/docs'>http://localhost:9000/docs</a> for documentation.");
+  res.send("<h1>Visit <a href='/docs'>/docs</a> for documentation.</h1>");
 });
 
 export default app;

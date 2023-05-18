@@ -19,4 +19,5 @@ server.on("error", (e) => {
 
 server.on("listening", (e) => {
   console.log("Listening on port: " + PORT);
+  console.log("Visit: " + "http://localhost:" + PORT)
 });
