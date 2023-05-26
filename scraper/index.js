@@ -9,6 +9,7 @@ import getTopLoser from "./topLoser.js";
 import getTopShare from "./topShare.js";
 import getTopTransaction from "./topTransaction.js";
 import getTopTurnOver from "./topTurnOver.js";
+import getMarketSummary from "./marketSummary.js";
 
 export {
   getCompanies,
@@ -21,5 +22,6 @@ export {
   getTopShare,
   getTopTransaction,
   getTopTurnOver,
-  companyDetails
+  companyDetails,
+  getMarketSummary,
 };

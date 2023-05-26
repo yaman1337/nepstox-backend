@@ -9,7 +9,8 @@ import {
   topLoser,
   topShare,
   topTurnOver,
-  topTransaction
+  topTransaction,
+  marketSummary,
 } from "../../controllers/nepse/nepseData.controller.js";
 
 const nepseDataRouter = Router();
@@ -25,5 +26,6 @@ nepseDataRouter
   .get("/top-share", topShare)
   .get("/top-turnover", topTurnOver)
   .get("/top-transaction", topTransaction)
+  .get("/market-summary", marketSummary);
 
 export default nepseDataRouter;

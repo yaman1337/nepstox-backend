@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 
-// companyDetails("nmb")
+companyDetails("nmb")
 
 export default async function companyDetails(symbol) {
   try {

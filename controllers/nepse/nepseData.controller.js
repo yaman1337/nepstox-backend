@@ -9,6 +9,7 @@ import {
   getTopShare,
   getTopTransaction,
   getTopTurnOver,
+  getMarketSummary,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -19,7 +20,7 @@ import HttpResponse from "../../utils/HttpResponse.js";
  * @openapi
  * /nepse/companies:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
  *    summary: Get nepse listed companies
  *    responses:
@@ -39,15 +40,15 @@ const companies = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/company-details/{symbol}:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
  *    summary: Get details of company by its symbol parameter.
  *    parameters:
- *      - in: path 
+ *      - in: path
  *        name: symbol
  *        schema:
  *          type: string
- *        description: Symbol of company 
+ *        description: Symbol of company
  *    responses:
  *      200:
  *        summary: array
@@ -62,15 +63,13 @@ const companyDetails = asyncHandler(async (req, res) => {
   res.send(response);
 });
 
-
-
 /**
  * @openapi
  * /nepse/live-trading:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get live trading data. 
+ *    summary: Get live trading data.
  *    responses:
  *      200:
  *        summary: array
@@ -88,9 +87,9 @@ const liveTradingData = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/today-share-price:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get today's share price. 
+ *    summary: Get today's share price.
  *    responses:
  *      200:
  *        summary: array
@@ -108,9 +107,9 @@ const todaySharePrice = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/top-broker:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get latest top brokers 
+ *    summary: Get latest top brokers
  *    responses:
  *      200:
  *        summary: array
@@ -125,9 +124,9 @@ const topBroker = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/top-gainer:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get latest top gainers 
+ *    summary: Get latest top gainers
  *    responses:
  *      200:
  *        summary: array
@@ -142,9 +141,9 @@ const topGainer = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/top-loser:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get latest top losers. 
+ *    summary: Get latest top losers.
  *    responses:
  *      200:
  *        summary: array
@@ -159,9 +158,9 @@ const topLoser = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/top-share:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get latest top share 
+ *    summary: Get latest top share
  *    responses:
  *      200:
  *        summary: array
@@ -176,9 +175,9 @@ const topShare = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/top-turnover:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get latest top turn overs. 
+ *    summary: Get latest top turn overs.
  *    responses:
  *      200:
  *        summary: array
@@ -196,9 +195,9 @@ const topTurnOver = asyncHandler(async (req, res) => {
  * @openapi
  * /nepse/top-transaction:
  *  get:
- *    tags: 
+ *    tags:
  *      - Nepse Data
- *    summary: Get latest top transactions. 
+ *    summary: Get latest top transactions.
  *    responses:
  *      200:
  *        summary: array
@@ -207,6 +206,26 @@ const topTransaction = asyncHandler(async (req, res) => {
   const data = await getTopTransaction(urls.topTransactionUrl);
   const response = new HttpResponse({
     message: "Top transactions fetched",
+    data,
+  });
+  res.send(response);
+});
+
+/**
+ * @openapi
+ * /nepse/market-summary:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get the market Summary.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const marketSummary = asyncHandler(async (req, res) => {
+  const data = await getMarketSummary(urls.marketSummaryUrl);
+  const response = new HttpResponse({
+    message: "Market Summary fetched",
     data,
   });
   res.send(response);
@@ -223,4 +242,5 @@ export {
   topShare,
   topTurnOver,
   topTransaction,
+  marketSummary,
 };
