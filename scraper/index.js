@@ -12,6 +12,7 @@ import getTopTurnOver from "./topTurnOver.js";
 import getMarketSummary from "./marketSummary.js";
 import getIndices from "./indices.js";
 import getSubIndices from "./subIndices.js";
+import getFloorSheet from "./floorsheet.js";
 
 export {
   getCompanies,
@@ -27,5 +28,6 @@ export {
   companyDetails,
   getMarketSummary,
   getIndices,
-  getSubIndices
+  getSubIndices,
+  getFloorSheet,
 };
