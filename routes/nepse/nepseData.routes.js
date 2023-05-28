@@ -12,6 +12,7 @@ import {
   topTransaction,
   marketSummary,
   indices,
+  subIndices
 } from "../../controllers/nepse/nepseData.controller.js";
 
 const nepseDataRouter = Router();
@@ -28,6 +29,7 @@ nepseDataRouter
   .get("/top-turnover", topTurnOver)
   .get("/top-transaction", topTransaction)
   .get("/market-summary", marketSummary)
-  .get("/indices", indices);
+  .get("/indices", indices)
+  .get("/subindices", subIndices)
 
 export default nepseDataRouter;

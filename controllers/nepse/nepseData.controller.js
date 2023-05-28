@@ -11,6 +11,7 @@ import {
   getTopTurnOver,
   getMarketSummary,
   getIndices,
+  getSubIndices
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -252,6 +253,26 @@ const indices = asyncHandler(async (req, res) => {
   res.send(response);
 });
 
+/**
+ * @openapi
+ * /nepse/subindices:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get the current sub indices.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const subIndices = asyncHandler(async (req, res) => {
+  const data = await getSubIndices(urls.indicesUrl);
+  const response = new HttpResponse({
+    message: "Sub indices fetched.",
+    data,
+  });
+  res.send(response);
+});
+
 export {
   companies,
   companyDetails,
@@ -265,4 +286,5 @@ export {
   topTransaction,
   marketSummary,
   indices,
+  subIndices
 };

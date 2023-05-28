@@ -11,6 +11,7 @@ import getTopTransaction from "./topTransaction.js";
 import getTopTurnOver from "./topTurnOver.js";
 import getMarketSummary from "./marketSummary.js";
 import getIndices from "./indices.js";
+import getSubIndices from "./subIndices.js";
 
 export {
   getCompanies,
@@ -25,5 +26,6 @@ export {
   getTopTurnOver,
   companyDetails,
   getMarketSummary,
-  getIndices
+  getIndices,
+  getSubIndices
 };
