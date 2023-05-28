@@ -11,7 +11,8 @@ import {
   getTopTurnOver,
   getMarketSummary,
   getIndices,
-  getSubIndices
+  getSubIndices,
+  getFloorSheet,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -273,6 +274,26 @@ const subIndices = asyncHandler(async (req, res) => {
   res.send(response);
 });
 
+/**
+ * @openapi
+ * /nepse/floorsheet:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get the floorsheet data.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const floorSheet = asyncHandler(async (req, res) => {
+  const data = await getFloorSheet(urls.floorSheetUrl);
+  const response = new HttpResponse({
+    message: "Floorsheet fetched.",
+    data,
+  });
+  res.send(response);
+});
+
 export {
   companies,
   companyDetails,
@@ -286,5 +307,6 @@ export {
   topTransaction,
   marketSummary,
   indices,
-  subIndices
+  subIndices,
+  floorSheet,
 };
