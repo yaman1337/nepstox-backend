@@ -13,6 +13,7 @@ import {
   getIndices,
   getSubIndices,
   getFloorSheet,
+  getCompanyNews,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -61,6 +62,45 @@ const companyDetails = asyncHandler(async (req, res) => {
   const data = await getCompanyDetails(symbol);
   const response = new HttpResponse({
     message: "Company details fetched.",
+    data,
+  });
+  res.send(response);
+});
+
+/**
+ * @openapi
+ * /nepse/news/{symbol}/{start}/{length}:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get details of company by its symbol parameter.
+ *    parameters:
+ *      - in: path
+ *        name: symbol
+ *        schema:
+ *          type: string
+ *        description: Symbol of company
+ *      - in: path
+ *        name: start
+ *        schema:
+ *          type: number
+ *        description: Start position of document
+ *      - in: path
+ *        name: length
+ *        schema:
+ *          type: number
+ *        description: length of document
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const companyNews = asyncHandler(async (req, res) => {
+  const { symbol } = req.params;
+  const start = req.params || 0;
+  const length = req.params || 10;
+  const data = await getCompanyNews(symbol, start, length);
+  const response = new HttpResponse({
+    message: "Company news fetched.",
     data,
   });
   res.send(response);
@@ -309,4 +349,5 @@ export {
   indices,
   subIndices,
   floorSheet,
+  companyNews,
 };

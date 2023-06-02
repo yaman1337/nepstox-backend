@@ -13,6 +13,7 @@ import getMarketSummary from "./marketSummary.js";
 import getIndices from "./indices.js";
 import getSubIndices from "./subIndices.js";
 import getFloorSheet from "./floorsheet.js";
+import getCompanyNews from "./companyNews.js";
 
 export {
   getCompanies,
@@ -30,4 +31,5 @@ export {
   getIndices,
   getSubIndices,
   getFloorSheet,
+  getCompanyNews,
 };

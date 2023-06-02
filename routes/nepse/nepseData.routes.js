@@ -14,6 +14,7 @@ import {
   indices,
   subIndices,
   floorSheet,
+  companyNews,
 } from "../../controllers/nepse/nepseData.controller.js";
 
 const nepseDataRouter = Router();
@@ -32,6 +33,7 @@ nepseDataRouter
   .get("/market-summary", marketSummary)
   .get("/indices", indices)
   .get("/subindices", subIndices)
-  .get("/floorsheet", floorSheet);
+  .get("/floorsheet", floorSheet)
+  .get("/news/:symbol/:start/:news", companyNews);
 
 export default nepseDataRouter;
