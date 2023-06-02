@@ -7,7 +7,11 @@ import getTextFromHtml from "../utils/getTextFromHtml.js";
 
 // getCompanyNews("nmb").then((data) => console.log(data));
 
-export default async function getCompanyNews(symbol, start = 0, length = 10) {
+export default async function getCompanyNews({
+  symbol,
+  start = 0,
+  length = 10,
+}) {
   try {
     const companies = await getCompanies(urls.getCompaniesUrl);
 
@@ -20,7 +24,7 @@ export default async function getCompanyNews(symbol, start = 0, length = 10) {
     }
 
     const data = {
-      draw: 5,
+      draw: 1,
       "columns[0][data]": "published_date",
       "columns[0][name]": "",
       "columns[0][searchable]": true,
@@ -33,8 +37,8 @@ export default async function getCompanyNews(symbol, start = 0, length = 10) {
       "columns[1][orderable]": false,
       "columns[1][search][value]": "",
       "columns[1][search][regex]": false,
-      start: 0,
-      length: 10,
+      start: start,
+      length: length,
       "search[value]": "",
       "search[regex]": false,
       company: companyId,

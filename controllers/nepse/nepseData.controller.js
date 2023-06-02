@@ -96,9 +96,9 @@ const companyDetails = asyncHandler(async (req, res) => {
  */
 const companyNews = asyncHandler(async (req, res) => {
   const { symbol } = req.params;
-  const start = req.params || 0;
-  const length = req.params || 10;
-  const data = await getCompanyNews(symbol, start, length);
+  const start = req.params.start || 0;
+  const length = req.params.length || 10;
+  const data = await getCompanyNews({ symbol, start, length });
   const response = new HttpResponse({
     message: "Company news fetched.",
     data,
