@@ -226,7 +226,7 @@ const topShare = asyncHandler(async (req, res) => {
  *        summary: array
  */
 const topTurnOver = asyncHandler(async (req, res) => {
-  const data = await getTopTurnOver(urls.topTransactionUrl);
+  const data = await getTopTurnOver();
   const response = new HttpResponse({
     message: "Top turnovers fetched.",
     data,
