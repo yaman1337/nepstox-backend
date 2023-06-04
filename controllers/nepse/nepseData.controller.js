@@ -14,6 +14,7 @@ import {
   getSubIndices,
   getFloorSheet,
   getCompanyNews,
+  getForeignExchange,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -334,6 +335,26 @@ const floorSheet = asyncHandler(async (req, res) => {
   res.send(response);
 });
 
+/**
+ * @openapi
+ * /nepse/forex:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get foreign exchange data.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const forex = asyncHandler(async (req, res) => {
+  const data = await getForeignExchange();
+  const response = new HttpResponse({
+    message: "Floorsheet fetched.",
+    data,
+  });
+  res.send(response);
+});
+
 export {
   companies,
   companyDetails,
@@ -350,4 +371,5 @@ export {
   subIndices,
   floorSheet,
   companyNews,
+  forex,
 };

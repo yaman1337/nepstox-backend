@@ -15,6 +15,7 @@ import {
   subIndices,
   floorSheet,
   companyNews,
+  forex,
 } from "../../controllers/nepse/nepseData.controller.js";
 
 const nepseDataRouter = Router();
@@ -34,6 +35,7 @@ nepseDataRouter
   .get("/indices", indices)
   .get("/subindices", subIndices)
   .get("/floorsheet", floorSheet)
-  .get("/news/:symbol/:start/:news", companyNews);
+  .get("/news/:symbol/:start/:news", companyNews)
+  .get("/forex", forex)
 
 export default nepseDataRouter;
