@@ -15,6 +15,7 @@ import getSubIndices from "./subIndices.js";
 import getFloorSheet from "./floorsheet.js";
 import getCompanyNews from "./companyNews.js";
 import getForeignExchange from "./foreignExchange.js";
+import { getCompanyWiseFloorSheet } from "./floorsheet.js";
 
 export {
   getCompanies,
@@ -33,5 +34,6 @@ export {
   getSubIndices,
   getFloorSheet,
   getCompanyNews,
-  getForeignExchange
+  getForeignExchange,
+  getCompanyWiseFloorSheet
 };

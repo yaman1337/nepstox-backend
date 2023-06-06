@@ -63,3 +63,17 @@ export default async function getFloorSheet(url) {
     console.log(error);
   }
 }
+
+// getCompanyWiseFloorSheet("nabil").then((data) => console.log(data));
+
+export async function getCompanyWiseFloorSheet(symbol) {
+  try {
+    let url = `https://nepsealpha.com/floorsheet-live/stock_wise?symbol=${symbol.toUpperCase()}`;
+
+    const res = await fetch(url);
+    const data = await res.text();
+    return JSON.parse(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
