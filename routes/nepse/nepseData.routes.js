@@ -17,25 +17,26 @@ import {
   companyNews,
   forex,
 } from "../../controllers/nepse/nepseData.controller.js";
+import { checkCache } from "../../utils/getCache.js";
 
 const nepseDataRouter = Router();
 
 nepseDataRouter
-  .get("/companies", companies)
+  .get("/companies", checkCache("companies"), companies)
   .get("/company-details/:symbol", companyDetails)
-  .get("/live-trading", liveTradingData)
+  .get("/live-trading", checkCache("liveTrading"), liveTradingData)
   .get("/today-share-price", todaySharePrice)
-  .get("/top-broker", topBroker)
-  .get("/top-gainer", topGainer)
-  .get("/top-loser", topLoser)
-  .get("/top-share", topShare)
-  .get("/top-turnover", topTurnOver)
-  .get("/top-transaction", topTransaction)
-  .get("/market-summary", marketSummary)
-  .get("/indices", indices)
-  .get("/subindices", subIndices)
-  .get("/floorsheet", floorSheet)
+  .get("/top-broker", checkCache("topBroker"), topBroker)
+  .get("/top-gainer", checkCache("topGainer"), topGainer)
+  .get("/top-loser", checkCache("topLoser"), topLoser)
+  .get("/top-share", checkCache("topShare"), topShare)
+  .get("/top-turnover", checkCache("topTurnOver"), topTurnOver)
+  .get("/top-transaction", checkCache("topTransaction"), topTransaction)
+  .get("/market-summary", checkCache("marketSummary"), marketSummary)
+  .get("/indices", checkCache("indices"), indices)
+  .get("/subindices", checkCache("subIndices"), subIndices)
+  .get("/floorsheet", checkCache("floorSheet"), floorSheet)
   .get("/news/:symbol/:start/:news", companyNews)
-  .get("/forex", forex)
+  .get("/forex", checkCache("forex"), forex);
 
 export default nepseDataRouter;

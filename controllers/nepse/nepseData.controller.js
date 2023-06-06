@@ -20,6 +20,7 @@ import {
 import asyncHandler from "../../utils/asyncHandler.js";
 import urls from "../../utils/urls.js";
 import HttpResponse from "../../utils/HttpResponse.js";
+import { client } from "../../redis/redis.js";
 
 /**
  * @openapi
@@ -38,6 +39,10 @@ const companies = asyncHandler(async (req, res) => {
     message: "Companies data fetched",
     data,
   });
+
+  // cache data
+  client.setEx("companies", 3600, JSON.stringify(data));
+
   res.send(response);
 });
 
@@ -124,6 +129,9 @@ const liveTradingData = asyncHandler(async (req, res) => {
     message: "Live trading data fetched.",
     data,
   });
+
+  // cache data
+  client.setEx("liveTrading", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -161,6 +169,9 @@ const todaySharePrice = asyncHandler(async (req, res) => {
 const topBroker = asyncHandler(async (req, res) => {
   const data = await getTopBroker(urls.topBrokerUrl);
   const response = new HttpResponse({ message: "Top brokers fetched.", data });
+
+  // cache data
+  client.setEx("topBroker", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -178,6 +189,9 @@ const topBroker = asyncHandler(async (req, res) => {
 const topGainer = asyncHandler(async (req, res) => {
   const data = await getTopGainer(urls.topGainerUrl);
   const response = new HttpResponse({ message: "Top gainer fetched.", data });
+
+  // cache data
+  client.setEx("topGainer", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -195,6 +209,9 @@ const topGainer = asyncHandler(async (req, res) => {
 const topLoser = asyncHandler(async (req, res) => {
   const data = await getTopLoser(urls.topLoserUrl);
   const response = new HttpResponse({ message: "Top loser fetched.", data });
+
+  // cache data
+  client.setEx("topLoser", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -212,7 +229,10 @@ const topLoser = asyncHandler(async (req, res) => {
 const topShare = asyncHandler(async (req, res) => {
   const data = await getTopShare(urls.topShareUrl);
   const response = new HttpResponse({ message: "Top shares fetched.", data });
-  res.send(data);
+
+  // cache data
+  client.setEx("topShare", 3600, JSON.stringify(data));
+  res.send(response);
 });
 
 /**
@@ -232,6 +252,9 @@ const topTurnOver = asyncHandler(async (req, res) => {
     message: "Top turnovers fetched.",
     data,
   });
+
+  // cache data
+  client.setEx("topTurnOver", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -252,6 +275,9 @@ const topTransaction = asyncHandler(async (req, res) => {
     message: "Top transactions fetched",
     data,
   });
+
+  // cache data
+  client.setEx("topTransaction", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -272,6 +298,9 @@ const marketSummary = asyncHandler(async (req, res) => {
     message: "Market Summary fetched",
     data,
   });
+
+  // cache data
+  client.setEx("marketSummary", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -292,6 +321,9 @@ const indices = asyncHandler(async (req, res) => {
     message: "Indices fetched.",
     data,
   });
+
+  // cache data
+  client.setEx("indices", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -312,6 +344,9 @@ const subIndices = asyncHandler(async (req, res) => {
     message: "Sub indices fetched.",
     data,
   });
+
+  // cache data
+  client.setEx("subIndices", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -332,6 +367,9 @@ const floorSheet = asyncHandler(async (req, res) => {
     message: "Floorsheet fetched.",
     data,
   });
+
+  // cache data
+  client.setEx("floorSheet", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -352,6 +390,9 @@ const forex = asyncHandler(async (req, res) => {
     message: "Floorsheet fetched.",
     data,
   });
+
+  // cache data
+  client.setEx("forex", 3600, JSON.stringify(data));
   res.send(response);
 });
 

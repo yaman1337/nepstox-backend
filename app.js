@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import nepseDataRouter from "./routes/nepse/nepseData.routes.js";
-
+import { client } from "./redis/redis.js";
 const app = express();
 
 app.use(cors());
