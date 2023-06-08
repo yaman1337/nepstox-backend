@@ -15,6 +15,7 @@ import {
   getFloorSheet,
   getCompanyNews,
   getForeignExchange,
+  getCompanyWiseFloorSheet,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -375,6 +376,38 @@ const floorSheet = asyncHandler(async (req, res) => {
 
 /**
  * @openapi
+ * /nepse/floorsheet/{symbol}:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Company wise floorsheet.
+ *    parameters:
+ *      - in: path
+ *        name: symbol
+ *        schema:
+ *          type: string
+ *        description: Symbol of company
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+
+const companyWiseFloorSheet = asyncHandler(async (req, res) => {
+  let symbol = req.params.symbol;
+
+  const data = await getCompanyWiseFloorSheet(symbol);
+  const response = new HttpResponse({
+    message: "Floorsheet fetched.",
+    data,
+  });
+
+  // cache data
+  client.setEx("companyWiseFloorSheet", 200, JSON.stringify(data));
+  res.send(response);
+});
+
+/**
+ * @openapi
  * /nepse/forex:
  *  get:
  *    tags:
@@ -413,4 +446,5 @@ export {
   floorSheet,
   companyNews,
   forex,
+  companyWiseFloorSheet,
 };
