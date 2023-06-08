@@ -16,6 +16,7 @@ import {
   getCompanyNews,
   getForeignExchange,
   getCompanyWiseFloorSheet,
+  getGraphData,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -429,6 +430,45 @@ const forex = asyncHandler(async (req, res) => {
   res.send(response);
 });
 
+/**
+ * @openapi
+ * /nepse/graph/{symbol}/{start}/{end}:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get graph data between two intervals.
+ *    parameters:
+ *      - in: path
+ *        name: symbol
+ *        schema:
+ *          type: string
+ *        description: Symbol of company
+ *      - in: path
+ *        name: start
+ *        schema:
+ *          type: number
+ *        description: Start timestamp
+ *      - in: path
+ *        name: end
+ *        schema:
+ *          type: number
+ *        description: End timestamp
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const graphData = asyncHandler(async (req, res) => {
+  const { symbol } = req.params;
+  const start = req.params.start;
+  const end = req.params.end;
+  const data = await getGraphData(symbol, start, end);
+  const response = new HttpResponse({
+    message: "Graph fetched.",
+    data,
+  });
+  res.send(response);
+});
+
 export {
   companies,
   companyDetails,
@@ -447,4 +487,5 @@ export {
   companyNews,
   forex,
   companyWiseFloorSheet,
+  graphData,
 };

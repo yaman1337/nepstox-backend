@@ -16,7 +16,8 @@ import {
   floorSheet,
   companyNews,
   forex,
-  companyWiseFloorSheet
+  companyWiseFloorSheet,
+  graphData,
 } from "../../controllers/nepse/nepseData.controller.js";
 import { checkCache } from "../../utils/getCache.js";
 
@@ -37,8 +38,13 @@ nepseDataRouter
   .get("/indices", checkCache("indices"), indices)
   .get("/subindices", checkCache("subIndices"), subIndices)
   .get("/floorsheet", checkCache("floorSheet"), floorSheet)
-  .get("/floorsheet/:symbol", checkCache("companyWiseFloorSheet"), companyWiseFloorSheet)
+  .get(
+    "/floorsheet/:symbol",
+    checkCache("companyWiseFloorSheet"),
+    companyWiseFloorSheet
+  )
   .get("/news/:symbol/:start/:news", companyNews)
   .get("/forex", checkCache("forex"), forex)
+  .get("/graph/:symbol/:start/:end", graphData);
 
 export default nepseDataRouter;
