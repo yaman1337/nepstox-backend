@@ -45,6 +45,6 @@ nepseDataRouter
   )
   .get("/news/:symbol/:start/:news", companyNews)
   .get("/forex", checkCache("forex"), forex)
-  .get("/graph/:symbol/:start/:end", graphData);
+  .get("/graph/:symbol/:start/:end/:resolution", graphData);
 
 export default nepseDataRouter;
