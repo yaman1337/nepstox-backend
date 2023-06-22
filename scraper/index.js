@@ -1,6 +1,6 @@
 import companyDetails from "./companyDetails.js";
 import getCompanies from "./getCompanies.js";
-import getCompanyDetails from "./companyDetails.js";
+import getCompanyDetails, { newCompanyDetail } from "./companyDetails.js";
 import getLiveTradingData from "./liveTradingData.js";
 import getTodaySharePrice from "./todaySharePrice.js";
 import getTopBroker from "./topBroker.js";
@@ -21,6 +21,7 @@ import getGraphData from "./graphData.js";
 export {
   getCompanies,
   getCompanyDetails,
+  newCompanyDetail,
   getLiveTradingData,
   getTodaySharePrice,
   getTopBroker,

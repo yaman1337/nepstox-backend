@@ -5,6 +5,9 @@ import urls from "../utils/urls.js";
 
 // companyDetails("aclbsl");
 
+// newCompanyDetail("cfl");
+
+//  scraped from old source
 export default async function getCompanyDetails(symbol) {
   try {
     const res = await fetch("https://www.sharesansar.com/company/" + symbol);
@@ -96,6 +99,107 @@ export default async function getCompanyDetails(symbol) {
     finalData["movingAnalysis"] = movingAnalysis;
 
     return finalData;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// scraped from new source
+export async function newCompanyDetail(symbol) {
+  try {
+    symbol = symbol.toLowerCase();
+
+    const url = `https://merolagani.com/CompanyDetail.aspx?symbol=${symbol}`;
+    let status = 429;
+    let res;
+
+    while (status != 200) {
+      res = await fetch(url);
+      status = res.status;
+    }
+
+    const htmlData = await res.text();
+    const { document } = new JSDOM(htmlData).window;
+
+    const tableElement = document.querySelector("#accordion");
+
+    const dividendTable = document.querySelector(
+      "#dividend-panel > td > table"
+    );
+
+    const bonusTable = document.querySelector("#bonus-panel > td > table");
+
+    const rightShareTable = document.querySelector("#right-panel > td > table");
+
+    const headers = Array.from(tableElement.querySelectorAll("tr > th")).map(
+      (item) => item.textContent.trim()
+    );
+
+    const values = Array.from(tableElement.querySelectorAll("tr > td")).map(
+      (item) => {
+        let hasMultiple = item.textContent.trim().includes("\n");
+        if (!hasMultiple) {
+          return item.textContent.trim();
+        }
+
+        let newString = "";
+
+        let tempArr = item.textContent.trim().split("\n");
+
+        newString = tempArr[0].trim() + " " + tempArr[2].trim();
+        return newString;
+      }
+    );
+
+    headers.splice(13, 12);
+    values.splice(13, values.length - 15);
+
+    let finalObj = {};
+
+    finalObj["Company Name"] = document
+      .querySelector("#ctl00_ContentPlaceHolder1_CompanyDetail1_companyName")
+      .textContent.trim();
+
+    headers.forEach((item, idx) => {
+      finalObj[item] = values[idx];
+    });
+
+    const secondaryTableHeaders = ["id", "Value", "Fiscal Year"];
+
+    const valuesArray = [dividendTable, bonusTable, rightShareTable].map(
+      (item) => {
+        const eachArr = Array.from(
+          item.querySelectorAll("tbody > tr > td")
+        ).map((item) => {
+          return item.textContent.trim();
+        });
+
+        return eachArr;
+      }
+    );
+
+    const dividend = [];
+    const bonus = [];
+    const rightShare = [];
+
+    const finalSecondaryDataArray = [dividend, bonus, rightShare];
+
+    let j = 0;
+    for (let _ = 0; _ < valuesArray.length; _++) {
+      for (let i = 0; i < valuesArray[_].length; i += 3) {
+        let tempObj = {};
+        tempObj[secondaryTableHeaders[j]] = valuesArray[_][i];
+        tempObj[secondaryTableHeaders[j + 1]] = valuesArray[_][i + 1];
+        tempObj[secondaryTableHeaders[j + 2]] = valuesArray[_][i + 2];
+        finalSecondaryDataArray[_].push(tempObj);
+      }
+    }
+
+    finalObj["Dividend"] = dividend;
+    finalObj["Bonus"] = bonus;
+    finalObj["Right Share"] = rightShare;
+
+    return finalObj;
   } catch (error) {
     console.log(error);
   }

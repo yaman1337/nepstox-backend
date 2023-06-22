@@ -1,6 +1,7 @@
 import {
   getCompanies,
   getCompanyDetails,
+  newCompanyDetail,
   getLiveTradingData,
   getTodaySharePrice,
   getTopBroker,
@@ -67,7 +68,7 @@ const companies = asyncHandler(async (req, res) => {
  */
 const companyDetails = asyncHandler(async (req, res) => {
   const { symbol } = req.params;
-  const data = await getCompanyDetails(symbol);
+  const data = await newCompanyDetail(symbol);
   const response = new HttpResponse({
     message: "Company details fetched.",
     data,
