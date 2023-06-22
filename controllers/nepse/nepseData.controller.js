@@ -128,12 +128,19 @@ const companyNews = asyncHandler(async (req, res) => {
  */
 const liveTradingData = asyncHandler(async (req, res) => {
   const data = await getLiveTradingData(urls.liveTradingUrl);
+  const marketStatus = {
+    advanced: data.filter((item) => Number(item["Point Change"]) > 0).length,
+    declined: data.filter((item) => Number(item["Point Change"]) < 0).length,
+    unchanged: data.filter((item) => Number(item["Point Change"]) === 0).length,
+  };
   const response = new HttpResponse({
     message: "Live trading data fetched.",
+    marketStatus,
     data,
   });
 
   // cache data
+  client.setEx("marketStatus", 3600, JSON.stringify(marketStatus));
   client.setEx("liveTrading", 3600, JSON.stringify(data));
   res.send(response);
 });
