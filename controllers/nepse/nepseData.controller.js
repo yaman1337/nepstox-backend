@@ -485,6 +485,31 @@ const graphData = asyncHandler(async (req, res) => {
   res.send(response);
 });
 
+/**
+ * @openapi
+ * /nepse/market-status:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get advance/decline/unchanged status of market.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+
+const marketStatus = asyncHandler(async (req, res) => {
+  const data = await getLiveTradingData(urls.liveTradingUrl);
+  const marketStatus = {
+    advanced: data.filter((item) => Number(item["Point Change"]) > 0).length,
+    declined: data.filter((item) => Number(item["Point Change"]) < 0).length,
+    unchanged: data.filter((item) => Number(item["Point Change"]) === 0).length,
+  };
+  const response = new HttpResponse({
+    message: "market status fetched.",
+    data: marketStatus,
+  });
+  res.send(response);
+});
 export {
   companies,
   companyDetails,
@@ -504,4 +529,5 @@ export {
   forex,
   companyWiseFloorSheet,
   graphData,
+  marketStatus,
 };
