@@ -508,6 +508,9 @@ const marketStatus = asyncHandler(async (req, res) => {
     message: "market status fetched.",
     data: marketStatus,
   });
+
+  // cache data
+  client.setEx("marketStatus", 3600, JSON.stringify(data));
   res.send(response);
 });
 export {
