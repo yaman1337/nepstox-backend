@@ -27,7 +27,7 @@ const nepseDataRouter = Router();
 nepseDataRouter
   .get("/companies", checkCache("companies"), companies)
   .get("/company-details/:symbol", companyDetails)
-  .get("/live-trading", checkCache("liveTrading", true), liveTradingData)
+  .get("/live-trading", checkCache("liveTrading"), liveTradingData)
   .get("/today-share-price", todaySharePrice)
   .get("/top-broker", checkCache("topBroker"), topBroker)
   .get("/top-gainer", checkCache("topGainer"), topGainer)

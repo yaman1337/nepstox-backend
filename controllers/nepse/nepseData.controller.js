@@ -135,7 +135,6 @@ const liveTradingData = asyncHandler(async (req, res) => {
   };
   const response = new HttpResponse({
     message: "Live trading data fetched.",
-    marketStatus,
     data,
   });
 
