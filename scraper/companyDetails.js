@@ -209,6 +209,7 @@ export async function newCompanyDetail(symbol) {
       open: todaySharePrice.Open,
       high: todaySharePrice.High,
       low: todaySharePrice.Low,
+      prev: todaySharePrice["Prev. Close"],
     };
 
     finalObj["Dividend"] = dividend;
