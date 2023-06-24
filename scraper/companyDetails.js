@@ -121,6 +121,13 @@ export async function newCompanyDetail(symbol) {
     const htmlData = await res.text();
     const { document } = new JSDOM(htmlData).window;
 
+    // scrape today share price
+    let todaySharePrice;
+    let allTodaySharePrice = await getTodaySharePrice(urls.todaySharePriceUrl);
+    todaySharePrice = allTodaySharePrice.filter(
+      (item) => item["Symbol"].toLowerCase() === symbol.toLowerCase()
+    );
+
     const tableElement = document.querySelector("#accordion");
 
     const dividendTable = document.querySelector(
@@ -195,9 +202,19 @@ export async function newCompanyDetail(symbol) {
       }
     }
 
+    todaySharePrice = todaySharePrice[0];
+
+    finalObj["Others"] = {
+      point_change: todaySharePrice.Diff,
+      open: todaySharePrice.Open,
+      high: todaySharePrice.High,
+      low: todaySharePrice.Low,
+    };
+
     finalObj["Dividend"] = dividend;
     finalObj["Bonus"] = bonus;
     finalObj["Right Share"] = rightShare;
+  
 
     return finalObj;
   } catch (error) {
