@@ -19,6 +19,7 @@ import {
   companyWiseFloorSheet,
   graphData,
   marketStatus,
+  companyGraph,
 } from "../../controllers/nepse/nepseData.controller.js";
 import { checkCache } from "../../utils/getCache.js";
 
@@ -47,6 +48,7 @@ nepseDataRouter
   .get("/news/:symbol/:start/:news", companyNews)
   .get("/forex", checkCache("forex"), forex)
   .get("/graph/:symbol/:start/:end/:resolution", graphData)
+  .get("/graph/company/:symbol/:start/:end/:resolution", companyGraph)
   .get("/market-status", checkCache("marketStatus"), marketStatus);
 
 export default nepseDataRouter;

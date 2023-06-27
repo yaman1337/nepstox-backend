@@ -18,6 +18,7 @@ import {
   getForeignExchange,
   getCompanyWiseFloorSheet,
   getGraphData,
+  getCompanyGraph,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -474,9 +475,52 @@ const graphData = asyncHandler(async (req, res) => {
   const start = req.params.start;
   const end = req.params.end;
 
-  console.log(resolution, symbol, start, end);
-
   const data = await getGraphData(resolution, symbol, start, end);
+  const response = new HttpResponse({
+    message: "Graph fetched.",
+    data,
+  });
+  res.send(response);
+});
+
+/**
+ * @openapi
+ * /nepse/graph/company/{symbol}/{start}/{end}/{resolution}:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get graph of a company between two intervals.
+ *    parameters:
+ *      - in: path
+ *        name: symbol
+ *        schema:
+ *          type: string
+ *        description: Symbol of company
+ *      - in: path
+ *        name: start
+ *        schema:
+ *          type: number
+ *        description: Start timestamp
+ *      - in: path
+ *        name: end
+ *        schema:
+ *          type: number
+ *        description: End timestamp
+ *      - in: path
+ *        name: resolution
+ *        schema:
+ *           type: string
+ *        description: Resolution of graph
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const companyGraph = asyncHandler(async (req, res) => {
+  const { symbol, resolution } = req.params;
+  const start = req.params.start;
+  const end = req.params.end;
+
+  const data = await getCompanyGraph(resolution, symbol, start, end);
   const response = new HttpResponse({
     message: "Graph fetched.",
     data,
@@ -509,7 +553,7 @@ const marketStatus = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("marketStatus", 3600, JSON.stringify(data));
+  client.setEx("marketStatus", 3600, JSON.stringify(marketStatus));
   res.send(response);
 });
 export {
@@ -532,4 +576,5 @@ export {
   companyWiseFloorSheet,
   graphData,
   marketStatus,
+  companyGraph,
 };
