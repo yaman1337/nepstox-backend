@@ -19,6 +19,7 @@ import {
   getCompanyWiseFloorSheet,
   getGraphData,
   getCompanyGraph,
+  getMarketStatus,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -671,6 +672,27 @@ const marketStatus = asyncHandler(async (req, res) => {
   client.setEx("marketStatus", 3600, JSON.stringify(marketStatus));
   res.send(response);
 });
+
+/**
+ * @openapi
+ * /nepse/status:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get nepse market status.
+ *    responses:
+ *      200:
+ *        summary: object
+ */
+const nepseStatus = asyncHandler(async (req, res) => {
+  const data = await getMarketStatus();
+  const response = new HttpResponse({
+    message: "Nepse status.",
+    data,
+  });
+  res.send(response);
+});
+
 export {
   companies,
   companyDetails,
@@ -692,4 +714,5 @@ export {
   graphData,
   marketStatus,
   companyGraph,
+  nepseStatus,
 };

@@ -18,6 +18,7 @@ import getForeignExchange from "./foreignExchange.js";
 import { getCompanyWiseFloorSheet } from "./floorsheet.js";
 import getGraphData from "./graphData.js";
 import getCompanyGraph from "./getCompanyGraph.js";
+import getMarketStatus from "./marketStatus.js";
 
 export {
   getCompanies,
@@ -41,4 +42,5 @@ export {
   getCompanyWiseFloorSheet,
   getGraphData,
   getCompanyGraph,
+  getMarketStatus
 };
