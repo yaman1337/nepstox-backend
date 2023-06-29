@@ -20,6 +20,7 @@ import {
   getGraphData,
   getCompanyGraph,
   getMarketStatus,
+  getLatestNews,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -113,6 +114,41 @@ const companyNews = asyncHandler(async (req, res) => {
   const data = await getCompanyNews({ symbol, start, length });
   const response = new HttpResponse({
     message: "Company news fetched.",
+    data,
+  });
+  res.send(response);
+});
+
+/**
+ * @openapi
+ * /nepse/latest-news:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get latest news.
+ *    parameters:
+ *      - in: query
+ *        name: payload
+ *        schema:
+ *          type: string
+ *        description: Payload of next news page.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const latestNews = asyncHandler(async (req, res) => {
+  console.log(req.query.payload)
+  let payload = req.query.payload;
+  let data;
+
+  if (!payload) {
+    data = await getLatestNews();
+  } else {
+    data = await getLatestNews(payload);
+  }
+
+  const response = new HttpResponse({
+    message: "Latest news fetched.",
     data,
   });
   res.send(response);
@@ -715,4 +751,5 @@ export {
   marketStatus,
   companyGraph,
   nepseStatus,
+  latestNews,
 };

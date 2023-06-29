@@ -21,6 +21,7 @@ import {
   marketStatus,
   companyGraph,
   nepseStatus,
+  latestNews,
 } from "../../controllers/nepse/nepseData.controller.js";
 import { checkCache } from "../../utils/getCache.js";
 
@@ -51,6 +52,7 @@ nepseDataRouter
   .get("/graph/:symbol/:start/:end/:resolution", graphData)
   .get("/graph/company/:symbol/:start/:end/:resolution/:interval", companyGraph)
   .get("/market-status", checkCache("marketStatus"), marketStatus)
-  .get("/status", nepseStatus);
+  .get("/status", nepseStatus)
+  .get("/latest-news", latestNews);
 
 export default nepseDataRouter;
