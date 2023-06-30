@@ -20,6 +20,8 @@ export default async function getMarketStatus() {
       .querySelector("#menu > li:nth-child(1)")
       .textContent.trim();
 
+    let statusDate = document.querySelector("#dDate").textContent.trim();
+
     let open;
 
     if (status.open === currentStatus) {
@@ -28,7 +30,7 @@ export default async function getMarketStatus() {
       open = false;
     }
 
-    return { marketOpen: open };
+    return { marketOpen: open, date: statusDate };
   } catch (error) {
     console.log(error);
   }
