@@ -33,5 +33,6 @@ export default async function getTodaySharePrice(url) {
     return result;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching today share price.")
   }
 }

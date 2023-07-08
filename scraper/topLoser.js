@@ -26,5 +26,6 @@ export default async function getTopLoser(url) {
     return rawData;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching top loser.")
   }
 }

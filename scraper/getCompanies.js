@@ -13,6 +13,7 @@ export default async function getCompanies(url) {
       const parsedData =  document.querySelector("body > div:nth-child(3) > div > script:nth-child(1)").textContent.split("=")
         return JSON.parse(parsedData[1].split(";")[0])
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        throw new Error("Error fetching companies.")
     }
 }

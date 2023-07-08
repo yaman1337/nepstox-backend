@@ -52,5 +52,6 @@ export default async function getForeignExchange() {
     return finalData;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching foreign exchange data.")
   }
 }

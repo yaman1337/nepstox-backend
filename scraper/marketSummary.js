@@ -32,5 +32,6 @@ export default async function getMarketSummary(url) {
     return finalData;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching market summary.")
   }
 }

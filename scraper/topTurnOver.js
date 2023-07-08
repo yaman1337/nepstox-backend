@@ -30,5 +30,6 @@ export default async function getTopTurnOver() {
     return rawData;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching top turn over.")
   }
 }

@@ -111,5 +111,6 @@ export default async function getCompanyNews({
     return finalData;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching company news.")
   }
 }

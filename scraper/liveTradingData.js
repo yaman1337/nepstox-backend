@@ -37,5 +37,6 @@ export default async function getLiveTradingData(url) {
     return result;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching live trading data.")
   }
 }

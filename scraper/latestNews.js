@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 
-getLatestNews();
+// getLatestNews();
 
 export default async function getLatestNews(payload = undefined) {
   try {
@@ -20,13 +20,13 @@ export default async function getLatestNews(payload = undefined) {
 
     const nextPayload = document
       .querySelector(
-        "body > div:nth-child(3) > div > section.main-content > div:nth-child(3) > div > div > div > div > div.col-md-12 > div.newslist > ul > li:nth-child(2) > a"
+        "body > div:nth-child(4) > div > section.main-content > div:nth-child(3) > div > div > div > div > div.col-md-12 > div.newslist > ul > li:nth-child(2) > a"
       )
       .getAttribute("href")
       .split("=")[1];
 
     const newsDiv = document.querySelectorAll(
-      "body > div:nth-child(3) > div > section.main-content > div:nth-child(3) > div > div > div > div > div.col-md-12 > div.newslist > div"
+      "body > div:nth-child(4) > div > section.main-content > div:nth-child(3) > div > div > div > div > div.col-md-12 > div.newslist > div"
     );
 
     let allNews = [];
@@ -51,5 +51,6 @@ export default async function getLatestNews(payload = undefined) {
     return finalObj;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching the news.");
   }
 }

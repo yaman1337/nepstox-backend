@@ -47,5 +47,6 @@ export default async function getSubIndices(url) {
     return finalData;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching subindides.")
   }
 }

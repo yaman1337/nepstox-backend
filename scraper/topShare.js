@@ -24,6 +24,7 @@ export default async function getTopGainer(url) {
 
     return rawData;
   } catch (error) {
+    throw new Error("Error fetching top share.")
     console.log(error);
   }
 }

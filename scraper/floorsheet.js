@@ -75,5 +75,6 @@ export async function getCompanyWiseFloorSheet(symbol) {
     return JSON.parse(data);
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching floorsheet.")
   }
 }

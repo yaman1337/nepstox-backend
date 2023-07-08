@@ -33,5 +33,6 @@ export default async function getBrokerDetails() {
     return finalData;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching broker details.")
   }
 }

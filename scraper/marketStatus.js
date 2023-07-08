@@ -33,5 +33,6 @@ export default async function getMarketStatus() {
     return { marketOpen: open, date: statusDate };
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching market status.")
   }
 }

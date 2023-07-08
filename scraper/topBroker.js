@@ -22,6 +22,7 @@ export default async function topBroker(url) {
 
     return data;
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
+    throw new Error("Error fetching top broker.");
   }
 }

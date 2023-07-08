@@ -23,5 +23,6 @@ export default async function getCompanyGraph(
     return data;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching graph data.");
   }
 }

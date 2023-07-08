@@ -215,10 +215,10 @@ export async function newCompanyDetail(symbol) {
     finalObj["Dividend"] = dividend;
     finalObj["Bonus"] = bonus;
     finalObj["Right Share"] = rightShare;
-  
 
     return finalObj;
   } catch (error) {
     console.log(error);
+    throw new Error("Error fetching company details.");
   }
 }
