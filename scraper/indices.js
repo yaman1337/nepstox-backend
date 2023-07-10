@@ -12,9 +12,7 @@ export default async function getIndices(url) {
 
     const { document } = new JSDOM(htmlString).window;
 
-    const tableElement = document.querySelector(
-      "body > div:nth-child(3) > div > section.main-content > div:nth-child(3) > div > div:nth-child(3) > div.col-md-5 > div > div.col-md-12 > div.table-responsive > table"
-    );
+    const tableElement = document.querySelector("table");
 
     const headers = Array.from(
       tableElement.querySelectorAll("thead >  tr > th")
@@ -25,7 +23,7 @@ export default async function getIndices(url) {
     ).map((item) => item.textContent.trim());
 
     const date = document.querySelector(
-      "body > div:nth-child(3) > div > section.main-content > div:nth-child(3) > div > div:nth-child(3) > div.col-md-5 > div > div.col-md-12 > p > span"
+      "body > div:nth-child(4) > div > section.main-content > div:nth-child(3) > div > div:nth-child(3) > div.col-md-5 > div > div.col-md-12 > p > span"
     ).textContent;
 
     const finalData = {};
@@ -50,6 +48,6 @@ export default async function getIndices(url) {
     return finalData;
   } catch (error) {
     console.log(error);
-    throw new Error("Error fetching indices.")
+    throw new Error("Error fetching indices.");
   }
 }
