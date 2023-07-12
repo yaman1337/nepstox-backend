@@ -12,7 +12,7 @@ export default async function getSubIndices(url) {
 
     const { document } = new JSDOM(htmlString).window;
 
-    const tableElement = document.querySelector("body > div:nth-child(3) > div > section.main-content > div:nth-child(3) > div > div:nth-child(5) > div.col-md-5 > div > div.col-md-12 > div.table-responsive > table")
+    const tableElement = document.querySelector("body > div:nth-child(4) > div > section.main-content > div:nth-child(3) > div > div:nth-child(5) > div.col-md-5 > div > div.col-md-12 > div.table-responsive > table")
 
     const headers = Array.from(
       tableElement.querySelectorAll("thead >  tr > th")
@@ -22,7 +22,7 @@ export default async function getSubIndices(url) {
       tableElement.querySelectorAll("tbody > tr > td")
     ).map((item) => item.textContent.trim());
 
-    const date = document.querySelector("body > div:nth-child(3) > div > section.main-content > div:nth-child(3) > div > div:nth-child(5) > div.col-md-5 > div > div.col-md-12 > p > span").textContent;
+    const date = document.querySelector("body > div:nth-child(4) > div > section.main-content > div:nth-child(3) > div > div:nth-child(5) > div.col-md-5 > div > div.col-md-12 > p > span").textContent
 
     const finalData = {};
 

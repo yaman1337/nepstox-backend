@@ -10,7 +10,7 @@ export default async function getCompanies(url) {
        const data = await res.text()
        const { document } =  new JSDOM(data).window;
        
-      const parsedData =  document.querySelector("body > div:nth-child(3) > div > script:nth-child(1)").textContent.split("=")
+      const parsedData =  document.querySelector("body > div:nth-child(4) > div > script:nth-child(1)").textContent.split("=")
         return JSON.parse(parsedData[1].split(";")[0])
     } catch (error) {
         console.log(error);
