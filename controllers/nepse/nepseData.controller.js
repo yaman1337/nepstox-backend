@@ -21,6 +21,9 @@ import {
   getCompanyGraph,
   getMarketStatus,
   getLatestNews,
+  newTopGainer,
+  getNewTopLoser,
+  getNewTopTurnOver
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -245,6 +248,26 @@ const topGainer = asyncHandler(async (req, res) => {
 
 /**
  * @openapi
+ * /nepse/top-gainer/new:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get latest top gainers
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const topGainerNew = asyncHandler(async (req, res) => {
+  const data = await newTopGainer();
+  const response = new HttpResponse({ message: "Top gainer fetched.", data });
+
+  // cache data
+  client.setEx("newTopGainer", 3600, JSON.stringify(data));
+  res.send(response);
+});
+
+/**
+ * @openapi
  * /nepse/top-loser:
  *  get:
  *    tags:
@@ -260,6 +283,26 @@ const topLoser = asyncHandler(async (req, res) => {
 
   // cache data
   client.setEx("topLoser", 3600, JSON.stringify(data));
+  res.send(response);
+});
+
+/**
+ * @openapi
+ * /nepse/top-loser/new:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get latest top losers.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const newTopLoser = asyncHandler(async (req, res) => {
+  const data = await getNewTopLoser();
+  const response = new HttpResponse({ message: "Top loser fetched.", data });
+
+  // cache data
+  client.setEx("newTopLoser", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -303,6 +346,29 @@ const topTurnOver = asyncHandler(async (req, res) => {
 
   // cache data
   client.setEx("topTurnOver", 3600, JSON.stringify(data));
+  res.send(response);
+});
+
+/**
+ * @openapi
+ * /nepse/top-turnover/new:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get latest top turn overs.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const newTopTurnOver = asyncHandler(async (req, res) => {
+  const data = await getNewTopTurnOver();
+  const response = new HttpResponse({
+    message: "Top turnovers fetched.",
+    data,
+  });
+
+  // cache data
+  client.setEx("newTopTurnOver", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -752,4 +818,7 @@ export {
   companyGraph,
   nepseStatus,
   latestNews,
+  topGainerNew,
+  newTopLoser,
+  newTopTurnOver
 };

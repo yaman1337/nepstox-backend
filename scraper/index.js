@@ -20,6 +20,9 @@ import getGraphData from "./graphData.js";
 import getCompanyGraph from "./getCompanyGraph.js";
 import getMarketStatus from "./marketStatus.js";
 import getLatestNews from "./latestNews.js";
+import { newTopGainer } from "./topGainer.js";
+import { getNewTopLoser } from "./topLoser.js";
+import { getNewTopTurnOver } from "./topTurnOver.js";
 
 export {
   getCompanies,
@@ -44,5 +47,8 @@ export {
   getGraphData,
   getCompanyGraph,
   getMarketStatus,
-  getLatestNews
+  getLatestNews,
+  newTopGainer,
+  getNewTopLoser,
+  getNewTopTurnOver
 };

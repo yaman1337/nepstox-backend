@@ -1,7 +1,5 @@
 import puppeteer from "puppeteer";
 
-scrapeWebsite("https://merolagani.com/MarketSummary.aspx?type=gainers").then(data => console.log(data))
-
 async function scrapeWebsite(url) {
   try {
     const browser = await puppeteer.launch({ headless: "new" });
@@ -58,6 +56,8 @@ async function scrapeWebsite(url) {
     return scrapedData;
   } catch (err) {
     console.error("Error while scraping:", err);
-    throw new Error(err.message)
+    throw new Error(err.message);
   }
 }
+
+export default scrapeWebsite;

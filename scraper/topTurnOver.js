@@ -1,5 +1,6 @@
 import fetch, { Headers } from "node-fetch";
 import getTextFromHtml from "../utils/getTextFromHtml.js";
+import scrapeWebsite from "../utils/merolaganiHeadlessScraper.js";
 
 // getTopTurnOver().then((data) => console.log(data));
 
@@ -30,6 +31,18 @@ export default async function getTopTurnOver() {
     return rawData;
   } catch (error) {
     console.log(error);
-    throw new Error("Error fetching top turn over.")
+    throw new Error("Error fetching top turn over.");
+  }
+}
+
+export async function getNewTopTurnOver() {
+  try {
+    let url = "https://merolagani.com/MarketSummary.aspx?type=turnovers";
+    const data = await scrapeWebsite(url);
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error fetching top turnover.");
   }
 }
