@@ -8,14 +8,17 @@ import fetch from "node-fetch";
  * @description Fetch the graph data of Nepse.
  */
 export default async function getGraphData(
-  resolution = "1",
   symbol,
   start,
   end
 ) {
   try {
     console.log({ symbol, start, end });
-    let url = `https://nepsealpha.com/trading/1/history?symbol=${symbol.toUpperCase()}&resolution=${resolution}&from=${start}&to=${end}&pass=ok`;
+    
+    // let url = `https://nepsealpha.com/trading/1/history?symbol=${symbol.toUpperCase()}&resolution=${resolution}&from=${start}&to=${end}&pass=ok`;
+
+    let  url = `https://merolagani.com/handlers/TechnicalChartHandler.ashx?type=get_advanced_chart&symbol=${symbol.toUpperCase()}&resolution=1D&rangeStartDate=${start}&rangeEndDate=${end}&from=&isAdjust=1&currencyCode=NPR`
+
     console.log(url);
     const res = await fetch(url);
     const data = await res.json();

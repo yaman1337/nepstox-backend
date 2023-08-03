@@ -55,7 +55,7 @@ nepseDataRouter
   )
   .get("/news/:symbol/:start/:news", companyNews)
   .get("/forex", checkCache("forex"), forex)
-  .get("/graph/:symbol/:start/:end/:resolution", graphData)
+  .get("/graph/:symbol/:start/:end/", graphData)
   .get("/graph/company/:symbol/:start/:end/:resolution/:interval", companyGraph)
   .get("/market-status", checkCache("marketStatus"), marketStatus)
   .get("/status", nepseStatus)

@@ -544,7 +544,7 @@ const forex = asyncHandler(async (req, res) => {
 
 /**
  * @openapi
- * /nepse/graph/{symbol}/{start}/{end}/{resolution}:
+ * /nepse/graph/{symbol}/{start}/{end}:
  *  get:
  *    tags:
  *      - Nepse Data
@@ -565,21 +565,16 @@ const forex = asyncHandler(async (req, res) => {
  *        schema:
  *          type: number
  *        description: End timestamp
- *      - in: path
- *        name: resolution
- *        schema:
- *           type: string
- *        description: Resolution of graph
  *    responses:
  *      200:
  *        summary: array
  */
 const graphData = asyncHandler(async (req, res) => {
-  const { symbol, resolution } = req.params;
+  const { symbol } = req.params;
   const start = req.params.start;
   const end = req.params.end;
 
-  const data = await getGraphData(resolution, symbol, start, end);
+  const data = await getGraphData(symbol, start, end);
   const response = new HttpResponse({
     message: "Graph fetched.",
     data,
