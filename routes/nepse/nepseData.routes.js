@@ -24,7 +24,7 @@ import {
   latestNews,
   topGainerNew,
   newTopLoser,
-  newTopTurnOver
+  newTopTurnOver,
 } from "../../controllers/nepse/nepseData.controller.js";
 import { checkCache } from "../../utils/getCache.js";
 
@@ -37,7 +37,7 @@ nepseDataRouter
   .get("/today-share-price", todaySharePrice)
   .get("/top-broker", checkCache("topBroker"), topBroker)
   .get("/top-gainer", checkCache("topGainer"), topGainer)
-  .get("/top-gainer/new", checkCache("newTopGainer"),topGainerNew)
+  .get("/top-gainer/new", checkCache("newTopGainer"), topGainerNew)
   .get("/top-loser", checkCache("topLoser"), topLoser)
   .get("/top-loser/new", checkCache("newTopLoser"), newTopLoser)
   .get("/top-share", checkCache("topShare"), topShare)
@@ -55,7 +55,7 @@ nepseDataRouter
   )
   .get("/news/:symbol/:start/:news", companyNews)
   .get("/forex", checkCache("forex"), forex)
-  .get("/graph/:symbol/:start/:end/", graphData)
+  .get("/graph/:symbol/:start/:end/:resolution", graphData)
   .get("/graph/company/:symbol/:start/:end/:resolution/:interval", companyGraph)
   .get("/market-status", checkCache("marketStatus"), marketStatus)
   .get("/status", nepseStatus)

@@ -23,7 +23,7 @@ import {
   getLatestNews,
   newTopGainer,
   getNewTopLoser,
-  getNewTopTurnOver
+  getNewTopTurnOver,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -140,7 +140,7 @@ const companyNews = asyncHandler(async (req, res) => {
  *        summary: array
  */
 const latestNews = asyncHandler(async (req, res) => {
-  console.log(req.query.payload)
+  console.log(req.query.payload);
   let payload = req.query.payload;
   let data;
 
@@ -544,7 +544,7 @@ const forex = asyncHandler(async (req, res) => {
 
 /**
  * @openapi
- * /nepse/graph/{symbol}/{start}/{end}:
+ * /nepse/graph/{symbol}/{start}/{end}/{resolution}:
  *  get:
  *    tags:
  *      - Nepse Data
@@ -565,16 +565,19 @@ const forex = asyncHandler(async (req, res) => {
  *        schema:
  *          type: number
  *        description: End timestamp
+ *      - in: path
+ *        name: resolution
+ *        schema:
+ *          type: string
+ *        description: resolution of graph
  *    responses:
  *      200:
  *        summary: array
  */
 const graphData = asyncHandler(async (req, res) => {
-  const { symbol } = req.params;
-  const start = req.params.start;
-  const end = req.params.end;
+  const { symbol, start, end, resolution } = req.params;
 
-  const data = await getGraphData(symbol, start, end);
+  const data = await getGraphData(symbol, start, end, resolution);
   const response = new HttpResponse({
     message: "Graph fetched.",
     data,
@@ -815,5 +818,5 @@ export {
   latestNews,
   topGainerNew,
   newTopLoser,
-  newTopTurnOver
+  newTopTurnOver,
 };
