@@ -14,7 +14,7 @@ export default async function getGraphData(
   resolution = "1D"
 ) {
   try {
-    console.log({ symbol, start, end });
+    console.log({ symbol, start, end, resolution });
 
     // let url = `https://nepsealpha.com/trading/1/history?symbol=${symbol.toUpperCase()}&resolution=${resolution}&from=${start}&to=${end}&pass=ok`;
 

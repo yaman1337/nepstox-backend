@@ -587,7 +587,7 @@ const graphData = asyncHandler(async (req, res) => {
 
 /**
  * @openapi
- * /nepse/graph/company/{symbol}/{start}/{end}/{resolution}/{interval}:
+ * /nepse/graph/company/{symbol}/{start}/{end}/{resolution}:
  *  get:
  *    tags:
  *      - Nepse Data
@@ -613,133 +613,29 @@ const graphData = asyncHandler(async (req, res) => {
  *        schema:
  *           type: string
  *        description: Resolution of graph
- *      - in: path
- *        name: interval
- *        schema:
- *           type: string
- *        description: Interval of graph
  *    responses:
  *      200:
  *        summary: array
  */
 const companyGraph = asyncHandler(async (req, res) => {
-  const { symbol, resolution, interval } = req.params;
-  const start = req.params.start;
-  const end = req.params.end;
+  const { symbol, start, end, resolution } = req.params;
 
-  let data = await getCompanyGraph(resolution, symbol, start, end);
-  if (interval === "1D") {
-    const initialTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${
-        new Date().getDate() - 1
-      }`,
-      10
-    );
-    const finalTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${
-        new Date().getDate() - 1
-      }`,
-      15
-    );
+  const data = await getGraphData(symbol, start, end, resolution);
+  let finalData;
 
-    const graphFormatData = data.t.map((item, index) => ({
-      x: Number(item),
-      y: Number(data?.c[index]),
-    }));
-    const intervalData = graphFormatData.filter(
-      (item) => item.x >= initialTimeStamp && item.x <= finalTimeStamp
-    );
-    const response = new HttpResponse({
-      message: "Graph fetched.",
-      data: intervalData,
+  if (data?.t?.length > 2) {
+    const graphPoints = data.t.map((item, index) => {
+      return {
+        x: item,
+        y: data.o[index],
+      };
     });
-    res.send(response);
-    return;
-  } else if (interval === "1W") {
-    const initialTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${
-        new Date().getDate() - 7
-      }`,
-      10
-    );
-    const finalTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${
-        new Date().getDate() - 1
-      }`,
-      15
-    );
-
-    const graphFormatData = data.t.map((item, index) => ({
-      x: Number(item),
-      y: Number(data?.c[index]),
-    }));
-    const intervalData = graphFormatData.filter(
-      (item) => item.x >= initialTimeStamp && item.x <= finalTimeStamp
-    );
-    const response = new HttpResponse({
-      message: "Graph fetched.",
-      data: intervalData,
-    });
-    res.send(response);
-    return;
-  } else if (interval === "1M") {
-    const initialTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear()}-${new Date().getMonth()}-${
-        new Date().getDate() - 1
-      }`,
-      10
-    );
-    const finalTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${
-        new Date().getDate() - 1
-      }`,
-      15
-    );
-
-    const graphFormatData = data.t.map((item, index) => ({
-      x: Number(item),
-      y: Number(data?.c[index]),
-    }));
-    const intervalData = graphFormatData.filter(
-      (item) => item.x >= initialTimeStamp && item.x <= finalTimeStamp
-    );
-    const response = new HttpResponse({
-      message: "Graph fetched.",
-      data: intervalData,
-    });
-    res.send(response);
-    return;
-  } else if (interval === "1Y") {
-    const initialTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${
-        new Date().getDate() - 1
-      }`,
-      10
-    );
-    const finalTimeStamp = getTimeStampOfDate(
-      `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${
-        new Date().getDate() - 1
-      }`,
-      15
-    );
-
-    const graphFormatData = data.t.map((item, index) => ({
-      x: Number(item),
-      y: Number(data?.c[index]),
-    }));
-    const intervalData = graphFormatData.filter(
-      (item) => item.x >= initialTimeStamp && item.x <= finalTimeStamp
-    );
-    const response = new HttpResponse({
-      message: "Graph fetched.",
-      data: intervalData,
-    });
-    res.send(response);
-    return;
+    finalData = graphPoints;
   }
+
   const response = new HttpResponse({
     message: "Graph fetched.",
-    data,
+    data: finalData,
   });
   res.send(response);
 });

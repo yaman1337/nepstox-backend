@@ -15,7 +15,7 @@ export default async function getCompanyGraph(
 ) {
   // https://nepsealpha.com/trading/1/history?symbol=UNLB&resolution=1&from=1687705970&to=1687743704&pass=ok&force=26140&currencyCode=NRS
   try {
-    console.log({ symbol, start, end });
+    console.log({ symbol, start, end, resolution });
     let url = `https://nepsealpha.com/trading/1/history?symbol=${symbol.toUpperCase()}&resolution=${resolution}&from=${start}&to=${end}&pass=ok&force=26140&currencyCode=NRS`;
     const res = await fetch(url);
     const data = await res.json();
