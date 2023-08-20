@@ -2,60 +2,86 @@ import fetch from "node-fetch";
 import asyncHandler from "../../utils/asyncHandler.js";
 import HttpResponse from "../../utils/HttpResponse.js";
 
+import axios from "axios";
+
 const getIPOCompanies = asyncHandler(async (req, res) => {
-  const url =
-    "https://globalimecapital.com/api/share-allotment-check/getCompanies";
+  const url = "https://wurfel.kitta.dev/api/ipo";
 
   const fetchRes = await fetch(url);
   const data = await fetchRes.json();
 
   const response = new HttpResponse({
     message: "IPO companies fetched.",
-    data,
+    data: data.body.companyShareList,
   });
 
   res.send(response);
 });
 
 const BulkIPOChecker = asyncHandler(async (req, res) => {
-  const url = "https://globalimecapital.com/api/share-allotment-check";
-  const { data, company_id } = req.body;
+  const url = "https://wurfel.kitta.dev/checker";
+  const { boid, company } = req.body;
 
-  if (!data || !company_id)
-    return res.send(
-      new HttpResponse({
-        message: "Invalid parameters.",
-        statusCode: 400,
-        success: false,
-        data: null,
-      })
-    );
+  if (!boid || !company) {
+    const response = new HttpResponse({
+      message: "Invalid parameters.",
+      statusCode: 400,
+      success: false,
+      data: null,
+    });
 
-  const arrayOfPromises = [];
+    return res.send(response);
+  }
 
-  data.forEach((item) => {
-    const options = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ boid: item.boid, company_id }),
-    };
-    arrayOfPromises.push(fetch(url, options));
+  const userRes = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ boid, company }),
   });
+  const userResData = await userRes.json();
+  console.log(userResData);
 
-  const arrayOfResponsePromise = await Promise.all(arrayOfPromises);
-  const arrayOfData = await Promise.all(
-    arrayOfResponsePromise.map((item) => item.json())
-  );
+  // console.log(userResData);
 
-  const finalData = arrayOfData.map((item, idx) => {
-    return { ...item, username: data[idx].username };
-  });
+  // const { data, company_id } = req.body;
 
-  res.send(
-    new HttpResponse({ message: "Bulk result success.", data: finalData })
-  );
+  // if (!data || !company_id)
+  //   return res.send(
+  //     new HttpResponse({
+  //       message: "Invalid parameters.",
+  //       statusCode: 400,
+  //       success: false,
+  //       data: null,
+  //     })
+  //   );
+
+  // const arrayOfPromises = [];
+
+  // data.forEach((item) => {
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({ boid: item.boid, company: item.company }),
+  //   };
+  //   arrayOfPromises.push(fetch(url, options));
+  // });
+
+  // const arrayOfResponsePromise = await Promise.all(arrayOfPromises);
+  // const arrayOfData = await Promise.all(
+  //   arrayOfResponsePromise.map((item) => item.json())
+  // );
+
+  // const finalData = arrayOfData.map((item, idx) => {
+  //   return { ...item, username: data[idx].username };
+  // });
+
+  // res.send(
+  //   new HttpResponse({ message: "Bulk result success.", data: finalData })
+  // );
 });
 
 export { getIPOCompanies, BulkIPOChecker };
