@@ -29,7 +29,7 @@ import {
 import asyncHandler from "../../utils/asyncHandler.js";
 import urls from "../../utils/urls.js";
 import HttpResponse from "../../utils/HttpResponse.js";
-import { client } from "../../redis/redis.js";
+// import { client } from "../../redis/redis.js";
 import { getTimeStampOfDate } from "../../utils/time.js";
 
 /**
@@ -51,7 +51,7 @@ const companies = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("companies", 3600, JSON.stringify(data));
+  // client.setEx("companies", 3600, JSON.stringify(data));
 
   res.send(response);
 });
@@ -181,8 +181,8 @@ const liveTradingData = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("marketStatus", 3600, JSON.stringify(marketStatus));
-  client.setEx("liveTrading", 3600, JSON.stringify(data));
+  // client.setEx("marketStatus", 3600, JSON.stringify(marketStatus));
+  // client.setEx("liveTrading", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -222,7 +222,7 @@ const topBroker = asyncHandler(async (req, res) => {
   const response = new HttpResponse({ message: "Top brokers fetched.", data });
 
   // cache data
-  client.setEx("topBroker", 3600, JSON.stringify(data));
+  // client.setEx("topBroker", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -242,7 +242,7 @@ const topGainer = asyncHandler(async (req, res) => {
   const response = new HttpResponse({ message: "Top gainer fetched.", data });
 
   // cache data
-  client.setEx("topGainer", 3600, JSON.stringify(data));
+  // client.setEx("topGainer", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -262,7 +262,7 @@ const topGainerNew = asyncHandler(async (req, res) => {
   const response = new HttpResponse({ message: "Top gainer fetched.", data });
 
   // cache data
-  client.setEx("newTopGainer", 3600, JSON.stringify(data));
+  // client.setEx("newTopGainer", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -282,7 +282,7 @@ const topLoser = asyncHandler(async (req, res) => {
   const response = new HttpResponse({ message: "Top loser fetched.", data });
 
   // cache data
-  client.setEx("topLoser", 3600, JSON.stringify(data));
+  // client.setEx("topLoser", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -302,7 +302,7 @@ const newTopLoser = asyncHandler(async (req, res) => {
   const response = new HttpResponse({ message: "Top loser fetched.", data });
 
   // cache data
-  client.setEx("newTopLoser", 3600, JSON.stringify(data));
+  // client.setEx("newTopLoser", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -322,7 +322,7 @@ const topShare = asyncHandler(async (req, res) => {
   const response = new HttpResponse({ message: "Top shares fetched.", data });
 
   // cache data
-  client.setEx("topShare", 3600, JSON.stringify(data));
+  // client.setEx("topShare", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -345,7 +345,7 @@ const topTurnOver = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("topTurnOver", 3600, JSON.stringify(data));
+  // client.setEx("topTurnOver", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -368,7 +368,7 @@ const newTopTurnOver = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("newTopTurnOver", 3600, JSON.stringify(data));
+  // client.setEx("newTopTurnOver", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -391,7 +391,7 @@ const topTransaction = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("topTransaction", 3600, JSON.stringify(data));
+  // client.setEx("topTransaction", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -414,7 +414,7 @@ const marketSummary = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("marketSummary", 3600, JSON.stringify(data));
+  // client.setEx("marketSummary", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -437,7 +437,7 @@ const indices = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("indices", 3600, JSON.stringify(data));
+  // client.setEx("indices", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -460,7 +460,7 @@ const subIndices = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("subIndices", 3600, JSON.stringify(data));
+  // client.setEx("subIndices", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -483,7 +483,7 @@ const floorSheet = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("floorSheet", 3600, JSON.stringify(data));
+  // client.setEx("floorSheet", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -515,7 +515,7 @@ const companyWiseFloorSheet = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("companyWiseFloorSheet", 200, JSON.stringify(data));
+  // client.setEx("companyWiseFloorSheet", 200, JSON.stringify(data));
   res.send(response);
 });
 
@@ -538,7 +538,7 @@ const forex = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("forex", 3600, JSON.stringify(data));
+  // client.setEx("forex", 3600, JSON.stringify(data));
   res.send(response);
 });
 
@@ -665,7 +665,7 @@ const marketStatus = asyncHandler(async (req, res) => {
   });
 
   // cache data
-  client.setEx("marketStatus", 3600, JSON.stringify(marketStatus));
+  // client.setEx("marketStatus", 3600, JSON.stringify(marketStatus));
   res.send(response);
 });
 

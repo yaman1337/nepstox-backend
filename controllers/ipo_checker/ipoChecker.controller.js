@@ -33,16 +33,6 @@ const BulkIPOChecker = asyncHandler(async (req, res) => {
     return res.send(response);
   }
 
-  const userRes = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ boid, company }),
-  });
-  const userResData = await userRes.json();
-  console.log(userResData);
-
   // console.log(userResData);
 
   // const { data, company_id } = req.body;
