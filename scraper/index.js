@@ -23,7 +23,7 @@ import getLatestNews from "./latestNews.js";
 import { newTopGainer } from "./topGainer.js";
 import { getNewTopLoser } from "./topLoser.js";
 import { getNewTopTurnOver } from "./topTurnOver.js";
-
+import { getLiveData } from "./indices.js";
 export {
   getCompanies,
   getCompanyDetails,
@@ -39,6 +39,7 @@ export {
   companyDetails,
   getMarketSummary,
   getIndices,
+  getLiveData,
   getSubIndices,
   getFloorSheet,
   getCompanyNews,

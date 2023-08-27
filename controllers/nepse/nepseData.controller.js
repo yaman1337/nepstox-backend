@@ -24,6 +24,7 @@ import {
   newTopGainer,
   getNewTopLoser,
   getNewTopTurnOver,
+  getLiveData,
 } from "../../scraper/index.js";
 
 import asyncHandler from "../../utils/asyncHandler.js";
@@ -443,6 +444,27 @@ const indices = asyncHandler(async (req, res) => {
 
 /**
  * @openapi
+ * /nepse/live/new:
+ *  get:
+ *    tags:
+ *      - Nepse Data
+ *    summary: Get market live data.
+ *    responses:
+ *      200:
+ *        summary: array
+ */
+const newLiveData = asyncHandler(async (req, res) => {
+  const data = await getLiveData();
+  const response = new HttpResponse({
+    message: "Live Data fetched.",
+    data,
+  });
+
+  res.send(response);
+});
+
+/**
+ * @openapi
  * /nepse/subindices:
  *  get:
  *    tags:
@@ -715,4 +737,5 @@ export {
   topGainerNew,
   newTopLoser,
   newTopTurnOver,
+  newLiveData
 };

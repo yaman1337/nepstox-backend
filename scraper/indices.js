@@ -51,3 +51,24 @@ export default async function getIndices(url) {
     throw new Error("Error fetching indices.");
   }
 }
+
+export async function getLiveData() {
+  try {
+    const url = "https://sarallagani.xyz/api/market_data/home_live";
+    const headers = {
+      Permission: "2021D@T@f@RSt6&%2-D@T@",
+    };
+    const options = {
+      headers,
+    };
+
+    const res = await fetch(url, options);
+
+    const data = await res.json();
+
+    return data.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error fetching indices.");
+  }
+}

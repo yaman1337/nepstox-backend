@@ -25,6 +25,7 @@ import {
   topGainerNew,
   newTopLoser,
   newTopTurnOver,
+  newLiveData,
 } from "../../controllers/nepse/nepseData.controller.js";
 import { checkCache } from "../../utils/getCache.js";
 
@@ -59,6 +60,6 @@ nepseDataRouter
   .get("/graph/company/:symbol/:start/:end/:resolution", companyGraph)
   .get("/market-status", checkCache("marketStatus"), marketStatus)
   .get("/status", nepseStatus)
-  .get("/latest-news", latestNews);
-
+  .get("/latest-news", latestNews)
+  .get("/live/new", newLiveData);
 export default nepseDataRouter;
