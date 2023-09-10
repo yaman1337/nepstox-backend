@@ -3,6 +3,9 @@ import asyncHandler from "../../utils/asyncHandler.js";
 import HttpResponse from "../../utils/HttpResponse.js";
 
 import axios from "axios";
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const getIPOCompanies = asyncHandler(async (req, res) => {
   const url = "https://wurfel.kitta.dev/api/ipo";
@@ -37,11 +40,14 @@ const BulkIPOChecker = asyncHandler(async (req, res) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Cookie": process.env.COOKIE
     },
     body: JSON.stringify({ boid, company }),
   });
   const userResData = await userRes.json();
   console.log(userResData);
+
+  res.send(userResData)
 
   // console.log(userResData);
 
